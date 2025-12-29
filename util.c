@@ -35,7 +35,7 @@ int equals(const char *s1, const char *s2){
     return (tolower((unsigned char)*s1) - tolower((unsigned char)*s2));
 }
 
-int readToken(char **cursor, char *buffer){
+int readToken(char **cursor, char *buffer, int size){
     // 0 = Erro
     // 1 = Dado normal
     // 2 = String
@@ -50,7 +50,9 @@ int readToken(char **cursor, char *buffer){
         (*cursor)++;
 
         while(**cursor && **cursor != quote){
-            buffer[i++] = **cursor;
+            if(i < size - 1){
+                buffer[i++] = **cursor;
+            }
             (*cursor)++;
         }
 
@@ -69,7 +71,9 @@ int readToken(char **cursor, char *buffer){
                 return 0;
             }
 
-            buffer[i++] = **cursor;
+            if(i < size - 1){
+                buffer[i++] = **cursor;
+            }
             (*cursor)++;
         }
         while (i > 0 && isspace((unsigned char)buffer[i-1])) i--;
@@ -140,7 +144,7 @@ int validateBirthDate(const char *birthDate){
         printf("Erro: Data inválida! Estamos em %d/%d/%d.\n", currentDay, currentMonth, currentYear);
         return 0;
     }
-    
+
     return 1;
 }
 

@@ -26,7 +26,7 @@ void validateInsertPerson(personList *listPerson, char *cursor){
 
         while(*cursor && *cursor != ')'){
             char field[50];
-            if(!readToken(&cursor, field)) return;
+            if(!readToken(&cursor, field, sizeof(field))) return;
 
             if(counter >= 5){
                 printf("Erro: Excesso de campos!\n");
@@ -66,7 +66,7 @@ void validateInsertPerson(personList *listPerson, char *cursor){
 
             for(int i = 0; i < counter; i++){
                 char value[100];
-                int type = readToken(&cursor, value);
+                int type = readToken(&cursor, value, sizeof(value));
 
                 if(type == 0) return;
 
@@ -168,7 +168,7 @@ void validateUpdatePerson(personList *listPerson, char *cursor){
     while(*cursor && checkKeyword(cursor, "where") == NULL){
         char field[50];
         char value[100];
-        if(!readToken(&cursor, field)) return;
+        if(!readToken(&cursor, field, sizeof(field))) return;
 
         cursor = skipWhitespace(cursor);
 
@@ -178,7 +178,7 @@ void validateUpdatePerson(personList *listPerson, char *cursor){
         }
         cursor++;
 
-        int type = readToken(&cursor, value);
+        int type = readToken(&cursor, value, sizeof(value));
         if(type == 0) return;
 
         if(equals(field, "nome") == 0){
@@ -222,7 +222,7 @@ void validateUpdatePerson(personList *listPerson, char *cursor){
     cursor = skipWhitespace(cursor);
 
     char where[50];
-    if(!readToken(&cursor, where)) return;
+    if(!readToken(&cursor, where, sizeof(where))) return;
     if(equals(where, "codigo") != 0){
         printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
         return;
@@ -237,7 +237,7 @@ void validateUpdatePerson(personList *listPerson, char *cursor){
     cursor++;
 
     char id[20];
-    int typeID = readToken(&cursor, id);
+    int typeID = readToken(&cursor, id, sizeof(id));
     if(typeID == 2) { 
         printf("Erro: 'codigo' deve ser um número!\n"); return; 
     }
@@ -264,7 +264,7 @@ void validateDeletePerson(personList *listPerson, petList *listPet, char *cursor
     cursor = skipWhitespace(cursor);
 
     char where[50];
-    if(!readToken(&cursor, where)) return;
+    if(!readToken(&cursor, where, sizeof(where))) return;
     if(equals(where, "codigo") != 0){
         printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
         return;
@@ -279,7 +279,7 @@ void validateDeletePerson(personList *listPerson, petList *listPet, char *cursor
     cursor++;
 
     char id[20];
-    int typeID = readToken(&cursor, id);
+    int typeID = readToken(&cursor, id, sizeof(id));
     if(typeID == 2) { 
         printf("Erro: 'codigo' deve ser um número!\n"); return; 
     }
@@ -307,7 +307,7 @@ void validateSelectPerson(personList *listPerson, char *cursor){
             cursor = skipWhitespace(cursor);
 
             char field[50];
-            if(!readToken(&cursor, field)) return;
+            if(!readToken(&cursor, field, sizeof(field))) return;
 
             if(equals(field, "codigo") == 0) rule = 1;
             else if(equals(field, "nome") == 0) rule = 2;
@@ -341,8 +341,8 @@ void validateSelectPerson(personList *listPerson, char *cursor){
         cursor = skipWhitespace(cursor);
 
         char field[50];
-        if(!readToken(&cursor, field)) return;
-        if(equals(field, "codigo") != 0 && equals(field, "id") != 0){
+        if(!readToken(&cursor, field, sizeof(field))) return;
+        if(equals(field, "codigo") != 0){
             printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
             return;
         }
@@ -356,7 +356,7 @@ void validateSelectPerson(personList *listPerson, char *cursor){
         cursor++;
 
         char id[20];
-        int typeID = readToken(&cursor, id);
+        int typeID = readToken(&cursor, id, sizeof(id));
         if(typeID == 2) { 
             printf("Erro: 'codigo' deve ser numérico!\n"); return; 
         }

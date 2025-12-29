@@ -7,7 +7,7 @@ char* checkKeyword(char *cursor, const char *keyword);
 
 int equals(const char *s1, const char *s2);
 
-int readToken(char **cursor, char *buffer);
+int readToken(char **cursor, char *buffer, int size);
 
 int validateBirthDate(const char *birthDate);
 

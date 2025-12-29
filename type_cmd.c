@@ -22,7 +22,7 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
         while(*cursor && *cursor != ')'){
 
             char field[50];
-            if(!readToken(&cursor, field)) return;
+            if(!readToken(&cursor, field, sizeof(field))) return;
 
             if(counter >= 2){
                 printf("Erro: Excesso de campos!\n");
@@ -59,7 +59,7 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
             cursor++;
             for(int i = 0; i < counter; i++){
                 char value[100];
-                int type = readToken(&cursor, value);
+                int type = readToken(&cursor, value, sizeof(value));
                 if(type == 0) return;
                 
                 switch(map[i]){
@@ -99,7 +99,7 @@ void validateUpdatePetType(petTypeList *listType, char *cursor){
     while(*cursor && checkKeyword(cursor, "where") == NULL){
         char field[50];
         char value[70];
-        if(!readToken(&cursor, field)) return;
+        if(!readToken(&cursor, field, sizeof(field))) return;
 
         cursor = skipWhitespace(cursor);
 
@@ -109,7 +109,7 @@ void validateUpdatePetType(petTypeList *listType, char *cursor){
         }
         cursor++;
 
-        int type = readToken(&cursor, value);
+        int type = readToken(&cursor, value, sizeof(value));
         if(type == 0) return;
 
         if(equals(field, "descricao") == 0){
@@ -147,9 +147,9 @@ void validateUpdatePetType(petTypeList *listType, char *cursor){
     cursor = skipWhitespace(cursor);
 
     char where[50];
-    if(!readToken(&cursor, where)) return;
+    if(!readToken(&cursor, where, sizeof(where))) return;
 
-    if(equals(where, "codigo") != 0 && equals(where, "id") != 0){
+    if(equals(where, "codigo") != 0){
         printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
         return;
     }
@@ -163,7 +163,7 @@ void validateUpdatePetType(petTypeList *listType, char *cursor){
     cursor++;
 
     char id[20];
-    int typeID = readToken(&cursor, id);
+    int typeID = readToken(&cursor, id, sizeof(id));
     if(typeID == 2) { 
         printf("Erro: 'codigo' deve ser numérico.\n"); return; 
     }
@@ -190,7 +190,7 @@ void validateDeletePetType(petTypeList *listType, petList *listPet, char *cursor
     cursor = skipWhitespace(cursor);
 
     char where[50];
-    if(!readToken(&cursor, where)) return;
+    if(!readToken(&cursor, where, sizeof(where))) return;
 
     if(equals(where, "codigo") != 0){
         printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
@@ -206,7 +206,7 @@ void validateDeletePetType(petTypeList *listType, petList *listPet, char *cursor
     cursor++;
 
     char id[20];
-    int typeID = readToken(&cursor, id);
+    int typeID = readToken(&cursor, id, sizeof(id));
     if(typeID == 2) { 
         printf("Erro: 'codigo' deve ser numérico.\n"); return; 
     }
@@ -235,7 +235,7 @@ void validateSelectPetType(petTypeList *listType, char *cursor){
             cursor = skipWhitespace(cursor);
 
             char field[50];
-            if(!readToken(&cursor, field)) return;
+            if(!readToken(&cursor, field, sizeof(field))) return;
 
             if(equals(field, "codigo") == 0) rule = 1;
             else if(equals(field, "descricao") == 0) rule = 2;
@@ -266,9 +266,9 @@ void validateSelectPetType(petTypeList *listType, char *cursor){
         cursor = skipWhitespace(cursor);
 
         char field[50];
-        if(!readToken(&cursor, field)) return;
+        if(!readToken(&cursor, field, sizeof(field))) return;
 
-        if(equals(field, "codigo") != 0 && equals(field, "id") != 0){
+        if(equals(field, "codigo") != 0){
             printf("Erro: A cláusula WHERE deve usar o campo 'codigo'!\n");
             return;
         }
@@ -282,7 +282,7 @@ void validateSelectPetType(petTypeList *listType, char *cursor){
         cursor++;
 
         char id[20];
-        int typeID = readToken(&cursor, id);
+        int typeID = readToken(&cursor, id, sizeof(id));
         if(typeID == 2) { 
             printf("Erro: 'codigo' deve ser um número.\n"); return; 
         }
