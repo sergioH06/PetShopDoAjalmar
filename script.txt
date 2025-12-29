@@ -1,0 +1,34 @@
+insert into tipo_pet (codigo, descricao) values (1, 'Cachorro');
+insert into tipo_pet (codigo, descricao) values (2, 'Gato');
+insert into tipo_pet (codigo, descricao) values (3, 'Passaro');
+
+insert into pessoa (codigo, nome, endereco, telefone, data_nascimento) values (10, 'Carlos Silva', 'Rua A 123', '9999-1111', '01/01/1990');
+insert into pessoa (codigo, nome, endereco, telefone, data_nascimento) values (20, 'Ana Souza', 'Av Paulista 900', '8888-2222', '15/05/1995');
+insert into pessoa (codigo, nome, endereco, telefone, data_nascimento) values (30, 'Marcos Teste', 'Rua Delete', '0000-0000', '20/10/2000');
+
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (100, 'Rex', 10, 1);
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (101, 'Mia', 20, 2);
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (102, 'Louro', 30, 3);
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (103, 'Toto', 10, 1);
+
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (100, 'Rex Clone', 10, 1);
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (500, 'Fantasma', 99, 1);
+insert into pet (codigo, nome, codigo_pes, codigo_tipo) values (501, 'Alien', 10, 99);
+
+select * from tipo_pet;
+select * from pessoa order by nome;
+select * from pet;
+
+update pet set nome = 'Rex Danger' where codigo = 100;
+update pessoa set endereco = 'Rua Nova 500' where codigo = 20;
+
+select * from pet where codigo = 100;
+select * from pessoa where codigo = 20;
+
+delete from pet where codigo = 103;
+
+delete from tipo_pet where codigo = 3;
+
+delete from pessoa where codigo = 20;
+
+select * from pet;
