@@ -39,19 +39,19 @@ void insertPet(petList *l, pet element){
     l->counter++;
 }
 
-void registerPet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode){
+int registerPet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode){
     pet new;
     if(!searchPerson(listPerson, personCode)){
         printf("Erro: Não existe PESSOA com código %d!\n", personCode);
-        return;
+        return 0;
     }
     if(!searchPetType(listType, petTypeCode)){
         printf("Erro: Não existe TIPO DE PET com código!\n", petTypeCode);
-        return;
+        return 0;
     }
     if(searchPet(listPet, code)){
         printf("Erro: Já existe PET com código %d!\n", code);
-        return;
+        return 0;
     }
     
     strncpy(new.name, name, sizeof(new.name) - 1);
@@ -61,6 +61,7 @@ void registerPet(petList *listPet, personList *listPerson, petTypeList *listType
     new.code = code;
 
     insertPet(listPet, new);
+    return 1;
 }
 
 petNode* searchPet(petList *l, int code){
@@ -79,11 +80,11 @@ void showPet(petNode *node){
     printf("Código de Tipo: %d\n", node->element.petTypeCode);
 }
 
-void deletePet(petList *l, int code){
+int deletePet(petList *l, int code){
     petNode *node = searchPet(l, code);
     if(!node){
         printf("Erro: PET com código %d não encontrado!\n", code);
-        return;
+        return 0;
     } else if(node == l->head && node == l->tail){
         l->head = NULL;
         l->tail = NULL;
@@ -98,13 +99,14 @@ void deletePet(petList *l, int code){
         node->next->previous = node->previous;
     }
     free(node);
+    return 1;
 }
 
-void updatePet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode){
+int updatePet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode){
     petNode *node = searchPet(listPet, code);
     if(!node){
         printf("Erro: PET com código %d não encontrado!\n", code);
-        return;
+        return 0;
     }
     if(strcmp(name, "") != 0){
         strncpy(node->element.name, name, sizeof(node->element.name) - 1);
@@ -115,6 +117,7 @@ void updatePet(petList *listPet, personList *listPerson, petTypeList *listType, 
             node->element.personCode = personCode;
         } else {
             printf("Código %d para PESSOA inválido!\n", personCode);
+            return 0;
         }
     }
     if(petTypeCode != -1){
@@ -122,8 +125,10 @@ void updatePet(petList *listPet, personList *listPerson, petTypeList *listType, 
             node->element.petTypeCode = petTypeCode;
         } else {
             printf("Erro: Código %d para TIPO DE PET inválido!\n", petTypeCode);
+            return 0;
         }
     }
+    return 1;
 }
 
 void freePetList(petList *l){

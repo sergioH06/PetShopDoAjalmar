@@ -33,15 +33,15 @@ void loadDataPerson(personList *l);
 
 void insertPerson(personList *l, person element);
 
-void registerPerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]);
+int registerPerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]);
 
 personNode* searchPerson(personList *l, int code);
 
 void showPerson(personNode *node);
 
-void deletePerson(personList *l, int code);
+int deletePerson(personList *l, int code);
 
-void updatePerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]);
+int updatePerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]);
 
 void freePersonList(personList *l);
 

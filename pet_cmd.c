@@ -7,7 +7,7 @@
 #include "person.h"
 #include "util.h"
 
-void executeInsertPet(petList *listPet, personList *listPerson, petTypeList *listType, char *cursor){
+void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *listType, char *cursor){
     printf("\n--- INSERT em PET ---\n");
     char *next = NULL;
     int map[10];
@@ -130,12 +130,13 @@ void executeInsertPet(petList *listPet, personList *listPerson, petTypeList *lis
     }
 
     if(!error){
-        registerPet(listPet, listPerson, listType, code, name, personCode, petTypeCode);
-        printf("Comando INSERT processado para PET com código %d.\n", code);
+        if(registerPet(listPet, listPerson, listType, code, name, personCode, petTypeCode)){
+            printf("Comando INSERT processado para PET com código %d.\n", code);
+        }
     }
 }
 
-void executeUpdatePet(petList *listPet, personList *listPerson, petTypeList *listType, char *cursor){
+void validateUpdatePet(petList *listPet, personList *listPerson, petTypeList *listType, char *cursor){
     printf("\n--- UPDATE em PET ---\n");
     char *next = NULL;
     
@@ -238,11 +239,12 @@ void executeUpdatePet(petList *listPet, personList *listPerson, petTypeList *lis
     }
     targetCode = atoi(id);
 
-    updatePet(listPet, listPerson, listType, targetCode, name, personCode, petTypeCode); 
-    printf("Comando UPDATE processado para PET com código %d.\n", targetCode);
+    if(updatePet(listPet, listPerson, listType, targetCode, name, personCode, petTypeCode)){
+        printf("Comando UPDATE processado para PET com código %d.\n", targetCode);
+    }
 }
 
-void executeDeletePet(petList *listPet, char *cursor){
+void validateDeletePet(petList *listPet, char *cursor){
     printf("\n--- DELETE em PET ---\n");
     char *next = NULL;
     int targetCode = -1;
@@ -280,11 +282,12 @@ void executeDeletePet(petList *listPet, char *cursor){
     }
     targetCode = atoi(id);
 
-    deletePet(listPet, targetCode);
-    printf("Comando DELETE processado para PET com código %d.\n", targetCode);
+    if(deletePet(listPet, targetCode)){
+        printf("Comando DELETE processado para PET com código %d.\n", targetCode);
+    }
 }
 
-void executeSelectPet(petList *listPet, char *cursor){
+void validateSelectPet(petList *listPet, char *cursor){
     printf("\n--- SELECT em PET ---\n");
     char *next = NULL;
     int rule = 0;

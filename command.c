@@ -137,17 +137,17 @@ void processCommands(commandQueue *q, personList *listPerson, petTypeList *listT
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeInsertPerson(listPerson, cursor);
+                    validateInsertPerson(listPerson, cursor);
                 } else if((next = checkKeyword(cursor, "tipo_pet")) != NULL){
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeInsertPetType(listType, cursor);
+                    validateInsertPetType(listType, cursor);
                 } else if((next = checkKeyword(cursor, "pet")) != NULL){
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeInsertPet(listPet, listPerson, listType, cursor);
+                    validateInsertPet(listPet, listPerson, listType, cursor);
                 } else {
                     printf("Erro: Tabela desconhecida!\n");
                 }
@@ -164,17 +164,17 @@ void processCommands(commandQueue *q, personList *listPerson, petTypeList *listT
                 cursor = next;
                 cursor = skipWhitespace(cursor);
 
-                executeUpdatePerson(listPerson, cursor);
+                validateUpdatePerson(listPerson, cursor);
             } else if((next = checkKeyword(cursor, "tipo_pet")) != NULL){
                 cursor = next;
                 cursor = skipWhitespace(cursor);
 
-                executeUpdatePetType(listType, cursor);
+                validateUpdatePetType(listType, cursor);
             } else if((next = checkKeyword(cursor, "pet")) != NULL){
                 cursor = next;
                 cursor = skipWhitespace(cursor);
 
-                executeUpdatePet(listPet, listPerson, listType, cursor);
+                validateUpdatePet(listPet, listPerson, listType, cursor);
             } else {
                 printf("Erro: Tabela desconhecida!\n");
             }
@@ -192,17 +192,17 @@ void processCommands(commandQueue *q, personList *listPerson, petTypeList *listT
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeDeletePerson(listPerson, listPet, cursor);
+                    validateDeletePerson(listPerson, listPet, cursor);
                 } else if((next = checkKeyword(cursor, "tipo_pet")) != NULL){
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeDeletePetType(listType, listPet, cursor);
+                    validateDeletePetType(listType, listPet, cursor);
                 } else if((next = checkKeyword(cursor, "pet")) != NULL){
                     cursor = next;
                     cursor = skipWhitespace(cursor);
 
-                    executeDeletePet(listPet, cursor);
+                    validateDeletePet(listPet, cursor);
                 } else {
                     printf("Erro: Tabela desconhecida!\n");
                 }
@@ -227,17 +227,17 @@ void processCommands(commandQueue *q, personList *listPerson, petTypeList *listT
                         cursor = next;
                         cursor = skipWhitespace(cursor);
 
-                        executeSelectPerson(listPerson, cursor);
+                        validateSelectPerson(listPerson, cursor);
                     } else if((next = checkKeyword(cursor, "tipo_pet")) != NULL){
                         cursor = next;
                         cursor = skipWhitespace(cursor);
 
-                        executeSelectPetType(listType, cursor);
+                        validateSelectPetType(listType, cursor);
                     } else if((next = checkKeyword(cursor, "pet")) != NULL){
                         cursor = next;
                         cursor = skipWhitespace(cursor);
 
-                        executeSelectPet(listPet, cursor);
+                        validateSelectPet(listPet, cursor);
                     } else {
                         printf("Erro: Tabela desconhecida!\n");
                     }

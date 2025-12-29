@@ -40,13 +40,13 @@ void insertPerson(personList *l, person element){
     l->counter++;
 }
 
-void registerPerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]){
+int registerPerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]){
     person new;
     if(!searchPerson(l, code)){
         new.code = code;
     } else {
         printf("Erro: Já existe PESSOA com código %d!\n", code);
-        return;
+        return 0;
     }
 
     strncpy(new.name, name, sizeof(new.name) - 1);
@@ -58,9 +58,12 @@ void registerPerson(personList *l, int code, char name[100], char address[50], c
     if(validateBirthDate(birthDate)){
         strncpy(new.birthDate, birthDate, sizeof(new.birthDate) - 1);
         new.birthDate[sizeof(new.birthDate) - 1] = '\0';
+    } else {
+        return 0;
     }
 
     insertPerson(l, new);
+    return 1;
 }
 
 personNode* searchPerson(personList *l, int code){
@@ -80,11 +83,11 @@ void showPerson(personNode *node){
     printf("Data de Nascimento: %s\n", node->element.birthDate);
 }
 
-void deletePerson(personList *l, int code){
+int deletePerson(personList *l, int code){
     personNode *node = searchPerson(l, code);
     if(!node){
         printf("Erro: PESSOA com código %d não encontrado!\n", code);
-        return;
+        return 0;
     } else if(node == l->head && node == l->tail){
         l->head = NULL;
         l->tail = NULL;
@@ -99,13 +102,14 @@ void deletePerson(personList *l, int code){
         node->next->previous = node->previous;
     }
     free(node);
+    return 1;
 }
 
-void updatePerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]){
+int updatePerson(personList *l, int code, char name[100], char address[50], char phone[20], char birthDate[11]){
     personNode *node = searchPerson(l, code);
     if(!node){
         printf("Erro: PESSOA com código %d não encontrado!\n", code);
-        return;
+        return 0;
     }
     if(strcmp(name, "") != 0){
         strncpy(node->element.name, name, sizeof(node->element.name) - 1);
@@ -122,7 +126,10 @@ void updatePerson(personList *l, int code, char name[100], char address[50], cha
     if(strcmp(birthDate, "") != 0 && validateBirthDate(birthDate)){
         strncpy(node->element.birthDate, birthDate, sizeof(node->element.birthDate) - 1);
         node->element.birthDate[sizeof(node->element.birthDate) - 1] = '\0';
+    } else {
+        return 0;
     }
+    return 1;
 }
 
 void freePersonList(personList *l){

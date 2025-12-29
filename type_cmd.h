@@ -5,12 +5,12 @@
 #include "pet.h"
 #include "util.h"
 
-void executeInsertPetType(petTypeList *listType, char *cursor);
+void validateInsertPetType(petTypeList *listType, char *cursor);
 
-void executeUpdatePetType(petTypeList *listType, char *cursor);
+void validateUpdatePetType(petTypeList *listType, char *cursor);
 
-void executeDeletePetType(petTypeList *listType, petList *listPet, char *cursor);
+void validateDeletePetType(petTypeList *listType, petList *listPet, char *cursor);
 
-void executeSelectPetType(petTypeList *listType, char *cursor);
+void validateSelectPetType(petTypeList *listType, char *cursor);
 
 #endif

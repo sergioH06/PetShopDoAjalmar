@@ -35,15 +35,15 @@ void loadDataPet(petList *l);
 
 void insertPet(petList *l, pet element);
 
-void registerPet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode);
+int registerPet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode);
 
 petNode* searchPet(petList *l, int code);
 
 void showPet(petNode *node);
 
-void deletePet(petList *l, int code);
+int deletePet(petList *l, int code);
 
-void updatePet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode);
+int updatePet(petList *listPet, personList *listPerson, petTypeList *listType, int code, char name[50], int personCode, int petTypeCode);
 
 void freePetList(petList *l);
 

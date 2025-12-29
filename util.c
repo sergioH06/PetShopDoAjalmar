@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "util.h"
 
@@ -98,7 +99,48 @@ int validateBirthDate(const char *birthDate){
         }
         cursor++;
     }
+    
+    int day, month, year;
+    sscanf(birthDate, "%d/%d/%d", &day, &month, &year);
 
+    time_t date = time(NULL);
+    struct tm *now = localtime(&date);
+
+    int currentYear = now->tm_year + 1900;
+    int currentMonth = now->tm_mon + 1;
+    int currentDay = now->tm_mday;
+
+    if (year > currentYear) {
+        printf("Erro: Data inválida! Estamos em %d/%d/%d.\n", currentDay, currentMonth, currentYear);
+        return 0;
+    }
+
+    if (month < 1 || month > 12) {
+        printf("Erro: Mês inválido!\n");
+        return 0;
+    }
+
+    if (year == currentYear && month > currentMonth) {
+        printf("Erro: Data inválida! Estamos em %d/%d/%d.\n", currentDay, currentMonth, currentYear);
+        return 0;
+    }
+
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if(month == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))){
+        daysInMonth[2] = 29;
+    }
+
+    if(day < 1 || day > daysInMonth[month]){
+        printf("Erro: Dia inválido! O mês %02d/%d tem apenas %d dias.\n", month, year, daysInMonth[month]);
+        return 0;
+    }
+
+    if (year == currentYear && month == currentMonth && day > currentDay) {
+        printf("Erro: Data inválida! Estamos em %d/%d/%d.\n", currentDay, currentMonth, currentYear);
+        return 0;
+    }
+    
     return 1;
 }
 

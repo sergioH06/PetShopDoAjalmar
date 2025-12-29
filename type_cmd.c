@@ -6,7 +6,7 @@
 #include "pet.h"
 #include "util.h"
 
-void executeInsertPetType(petTypeList *listType, char *cursor){
+void validateInsertPetType(petTypeList *listType, char *cursor){
     printf("\n--- INSERT em TIPO DE PET ---\n");
     char *next = NULL;
     int map[5];
@@ -74,12 +74,13 @@ void executeInsertPetType(petTypeList *listType, char *cursor){
     }
     
     if(code != -1 && strcmp(description, "") != 0){
-        registerPetType(listType, code, description);
-        printf("Comando INSERT processado para TIPO DE PET com código %d.\n", code);
+        if(registerPetType(listType, code, description)){
+            printf("Comando INSERT processado para TIPO DE PET com código %d.\n", code);
+        }
     }
 }
 
-void executeUpdatePetType(petTypeList *listType, char *cursor){
+void validateUpdatePetType(petTypeList *listType, char *cursor){
     printf("\n--- UPDATE em TIPO DE PET ---\n");
     char *next = NULL;
     
@@ -168,11 +169,12 @@ void executeUpdatePetType(petTypeList *listType, char *cursor){
     }
     targetCode = atoi(id);
 
-    updatePetType(listType, targetCode, description); 
-    printf("Comando UPDATE processado para TIPO DE PET com código %d.\n", targetCode);
+    if(updatePetType(listType, targetCode, description)){
+        printf("Comando UPDATE processado para TIPO DE PET com código %d.\n", targetCode);
+    } 
 }
 
-void executeDeletePetType(petTypeList *listType, petList *listPet, char *cursor){
+void validateDeletePetType(petTypeList *listType, petList *listPet, char *cursor){
     printf("\n--- DELETE em TIPO DE PET ---\n");
     char *next = NULL;
     int targetCode = -1;
@@ -211,11 +213,12 @@ void executeDeletePetType(petTypeList *listType, petList *listPet, char *cursor)
     targetCode = atoi(id);
 
     deletePetByType(listPet, targetCode);
-    deletePetType(listType, targetCode);
-    printf("Comando DELETE processado para TIPO DE PET com código %d (e os PETs nessa categoria).\n", targetCode);
+    if(deletePetType(listType, targetCode)){
+        printf("Comando DELETE processado para TIPO DE PET com código %d (e os PETs nessa categoria).\n", targetCode);
+    }
 }
 
-void executeSelectPetType(petTypeList *listType, char *cursor){
+void validateSelectPetType(petTypeList *listType, char *cursor){
     printf("\n--- SELECT em TIPO DE PET ---\n");
 
     char *next = NULL;

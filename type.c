@@ -11,7 +11,7 @@ void initPetTypeList(petTypeList *l){
 }
 
 void loadDataPetType(petTypeList *l){
-    FILE *file = fopen("tipo_pet", "rb");
+    FILE *file = fopen("tipo_pet.bin", "rb");
     petType new;
     if(file){
         while(fread(&new, sizeof(petType), 1, file)){
@@ -39,18 +39,19 @@ void insertPetType(petTypeList *l, petType element){
     l->counter++;
 }
 
-void registerPetType(petTypeList *l, int code, char description[50]){
+int registerPetType(petTypeList *l, int code, char description[50]){
     petType new;
     if(!searchPetType(l, code)){
         new.code = code;
     } else {
         printf("Erro: Já existe TIPO DE PET com código %d!\n", code);
-        return;
+        return 0;
     }
     strncpy(new.description, description, sizeof(new.description) - 1);
     new.description[sizeof(new.description) - 1] = '\0';
 
     insertPetType(l, new);
+    return 1;
 }
 
 petTypeNode* searchPetType(petTypeList *l, int code){
@@ -67,11 +68,11 @@ void showPetType(petTypeNode *node){
     printf("Descrição: %s\n", node->element.description);
 }
 
-void deletePetType(petTypeList *l, int code){
+int deletePetType(petTypeList *l, int code){
     petTypeNode *node = searchPetType(l, code);
     if(!node){
         printf("Erro: TIPO DE PET com código %d não encontrado!\n", code);
-        return;
+        return 0;
     } else if(node == l->head && node == l->tail){
         l->head = NULL;
         l->tail = NULL;
@@ -86,18 +87,20 @@ void deletePetType(petTypeList *l, int code){
         node->next->previous = node->previous;
     }
     free(node);
+    return 1;
 }
 
-void updatePetType(petTypeList *l, int code, char description[50]){
+int updatePetType(petTypeList *l, int code, char description[50]){
     petTypeNode *node = searchPetType(l, code);
     if(!node){
         printf("Erro: TIPO DE PET com código %d não encontrado!\n", code);
-        return;
+        return 0;
     }
     if(strcmp(description, "") != 0){
         strncpy(node->element.description, description, sizeof(node->element.description) - 1);
         node->element.description[sizeof(node->element.description) - 1] = '\0';
     }
+    return 1;
 }
 
 void freePetTypeList(petTypeList *l){

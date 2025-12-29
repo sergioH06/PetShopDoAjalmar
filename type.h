@@ -30,17 +30,17 @@ void loadDataPetType(petTypeList *l);
 
 void insertPetType(petTypeList *l, petType element);
 
-void registerPetType(petTypeList *l, int code, char description[50]);
+int registerPetType(petTypeList *l, int code, char description[50]);
 
 petTypeNode* searchPetType(petTypeList *l, int code);
 
 void showPetType(petTypeNode *node);
 
-void deletePetType(petTypeList *l, int code);
+int deletePetType(petTypeList *l, int code);
 
 void freePetTypeList(petTypeList *l); 
 
-void updatePetType(petTypeList *l, int code, char description[50]);
+int updatePetType(petTypeList *l, int code, char description[50]);
 
 petTypeTreeNode* insertPetTypeInTree(petTypeTreeNode *root, petType element, int rule);
 
