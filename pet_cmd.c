@@ -137,7 +137,7 @@ void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *li
 
     cursor = skipWhitespace(cursor);
     if (*cursor != '\0' && *cursor != ';') {
-        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.\n");
         return;
     }
 
@@ -253,7 +253,7 @@ void validateUpdatePet(petList *listPet, personList *listPerson, petTypeList *li
 
     cursor = skipWhitespace(cursor);
     if (*cursor != '\0' && *cursor != ';') {
-        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.\n");
         return;
     }
 
@@ -302,7 +302,7 @@ void validateDeletePet(petList *listPet, char *cursor){
 
     cursor = skipWhitespace(cursor);
     if (*cursor != '\0' && *cursor != ';') {
-        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.\n");
         return;
     }
 
@@ -347,7 +347,7 @@ void validateSelectPet(petList *listPet, char *cursor){
 
             cursor = skipWhitespace(cursor);
             if (*cursor != '\0' && *cursor != ';') {
-                printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+                printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.\n");
                 return;
             }
 
@@ -389,7 +389,7 @@ void validateSelectPet(petList *listPet, char *cursor){
 
         cursor = skipWhitespace(cursor);
         if (*cursor != '\0' && *cursor != ';') {
-            printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+            printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.\n");
             return;
         }
 
