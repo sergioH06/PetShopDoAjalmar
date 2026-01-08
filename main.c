@@ -33,11 +33,6 @@ int main(){
     readScript(queueCommand, "script.txt");
 
     processCommands(queueCommand, listPerson, listType, listPet);
-    
-    printf("\n--- Salvando Dados ---\n");
-    saveDataPerson(listPerson);
-    saveDataPetType(listType);
-    saveDataPet(listPet);
 
     char buffer[500];       
     char acumulator[5000]; 

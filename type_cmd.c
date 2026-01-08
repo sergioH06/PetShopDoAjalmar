@@ -73,7 +73,17 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
         }
     }
     
-    if(code != -1 && strcmp(description, "") != 0){
+    int error = 0;
+    if (code == -1) {
+        printf("Erro: O campo 'codigo' é obrigatório para TIPO DE PET.\n");
+        error = 1;
+    }
+    if(strcmp(description, "") == 0){
+        printf("Erro: O campo 'descricao' é obrigatório para TIPO DE PET.\n");
+        error = 1;
+    }
+
+    if(!error){
         if(registerPetType(listType, code, description)){
             printf("Comando INSERT processado para TIPO DE PET com código %d.\n", code);
         }
