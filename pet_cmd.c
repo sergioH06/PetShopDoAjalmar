@@ -47,7 +47,7 @@ void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *li
             if(*cursor == ','){
                 cursor++;
             } else if(*cursor != ')'){
-                printf("Erro: Sintaxe inválida. Esperada vírgula ',' separando as colunas.\n");
+                printf("Erro: Sintaxe inválida. Esperada vírgula ',' separando os campos.\n");
                 return;
             }
         }
@@ -104,9 +104,15 @@ void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *li
                 if(*cursor == ','){
                     cursor++;
                 } else if(*cursor != ')'){
-                    printf("Erro: Sintaxe inválida. Esperada vírgula ',' separando as colunas.\n");
+                    printf("Erro: Sintaxe inválida. Esperada vírgula ',' separando os valores.\n");
                     return;
                 }
+            }
+            cursor = skipWhitespace(cursor); // Pula espaços
+
+            if (*cursor != ')') {
+                printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");
+                return;
             }
             if (*cursor == ')') cursor++;
         }
@@ -127,6 +133,12 @@ void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *li
     if(petTypeCode == -1){
         printf("Erro: O campo 'codigo_tipo' é obrigatório para PET.\n");
         error = 1;
+    }
+
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
     }
 
     if(!error){
@@ -239,6 +251,12 @@ void validateUpdatePet(petList *listPet, personList *listPerson, petTypeList *li
     }
     targetCode = atoi(id);
 
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
+
     if(updatePet(listPet, listPerson, listType, targetCode, name, personCode, petTypeCode)){
         printf("Comando UPDATE processado para PET com código %d.\n", targetCode);
     }
@@ -282,6 +300,12 @@ void validateDeletePet(petList *listPet, char *cursor){
     }
     targetCode = atoi(id);
 
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
+
     if(deletePet(listPet, targetCode)){
         printf("Comando DELETE processado para PET com código %d.\n", targetCode);
     }
@@ -321,6 +345,12 @@ void validateSelectPet(petList *listPet, char *cursor){
                 current = current->next;
             }
 
+            cursor = skipWhitespace(cursor);
+            if (*cursor != '\0' && *cursor != ';') {
+                printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+                return;
+            }
+
             if (root == NULL) {
                 printf("Nenhum registro encontrado.\n");
             } else {
@@ -356,6 +386,12 @@ void validateSelectPet(petList *listPet, char *cursor){
             printf("Erro: 'codigo' deve ser numérico.\n"); return; 
         }
         int targetCode = atoi(id);
+
+        cursor = skipWhitespace(cursor);
+        if (*cursor != '\0' && *cursor != ';') {
+            printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+            return;
+        }
 
         petNode *found = searchPet(listPet, targetCode);
         if(found){

@@ -19,7 +19,7 @@ void loadDataPetType(petTypeList *l){
         }
         fclose(file);
     } else {
-        printf("Arquivo 'tipo_pet' não encontrado!\n");
+        printf("Erro: Arquivo 'tipo_pet' não encontrado!\n");
     }
 }
 

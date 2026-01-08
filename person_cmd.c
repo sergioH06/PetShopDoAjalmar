@@ -121,6 +121,12 @@ void validateInsertPerson(personList *listPerson, char *cursor){
                     return; 
                 }
             }
+            cursor = skipWhitespace(cursor); // Pula espaços
+
+            if (*cursor != ')') {
+                printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");
+                return;
+            }
             if (*cursor == ')') cursor++;
         }
     }
@@ -136,6 +142,12 @@ void validateInsertPerson(personList *listPerson, char *cursor){
     if (strcmp(birthDate, "") == 0) {
         printf("Erro: O campo 'nascimento' é obrigatório para PESSOA!\n");
         error = 1;
+    }
+
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
     }
 
     if(!error){
@@ -243,6 +255,12 @@ void validateUpdatePerson(personList *listPerson, char *cursor){
     }
     targetCode = atoi(id);
 
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
+
     if(updatePerson(listPerson, targetCode, name, address, phone, birthDate)){
         printf("Comando UPDATE processado para PESSOA com código %d.\n", targetCode);
     }
@@ -284,6 +302,12 @@ void validateDeletePerson(personList *listPerson, petList *listPet, char *cursor
         printf("Erro: 'codigo' deve ser um número!\n"); return; 
     }
     targetCode = atoi(id);
+
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
 
     deletePetByPerson(listPet, targetCode);
     if(deletePerson(listPerson, targetCode)){
@@ -327,6 +351,12 @@ void validateSelectPerson(personList *listPerson, char *cursor){
                 current = current->next;
             }
 
+            cursor = skipWhitespace(cursor);
+            if (*cursor != '\0' && *cursor != ';') {
+                printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+                return;
+            }
+
             if(root == NULL) {
                 printf("Nenhum registro encontrado.\n");
             } else {
@@ -361,6 +391,12 @@ void validateSelectPerson(personList *listPerson, char *cursor){
             printf("Erro: 'codigo' deve ser numérico!\n"); return; 
         }
         int targetCode = atoi(id);
+
+        cursor = skipWhitespace(cursor);
+        if (*cursor != '\0' && *cursor != ';') {
+            printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+            return;
+        }
 
         personNode *found = searchPerson(listPerson, targetCode);
         if(found){

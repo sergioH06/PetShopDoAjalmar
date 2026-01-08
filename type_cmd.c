@@ -69,6 +69,12 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
                 cursor = skipWhitespace(cursor);
                 if(*cursor == ',') cursor++;
             }
+            cursor = skipWhitespace(cursor); // Pula espaços
+
+            if (*cursor != ')') {
+                printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");
+                return;
+            }
             if (*cursor == ')') cursor++;
         }
     }
@@ -81,6 +87,12 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
     if(strcmp(description, "") == 0){
         printf("Erro: O campo 'descricao' é obrigatório para TIPO DE PET.\n");
         error = 1;
+    }
+
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
     }
 
     if(!error){
@@ -179,6 +191,12 @@ void validateUpdatePetType(petTypeList *listType, char *cursor){
     }
     targetCode = atoi(id);
 
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
+
     if(updatePetType(listType, targetCode, description)){
         printf("Comando UPDATE processado para TIPO DE PET com código %d.\n", targetCode);
     } 
@@ -222,6 +240,12 @@ void validateDeletePetType(petTypeList *listType, petList *listPet, char *cursor
     }
     targetCode = atoi(id);
 
+    cursor = skipWhitespace(cursor);
+    if (*cursor != '\0' && *cursor != ';') {
+        printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+        return;
+    }
+
     deletePetByType(listPet, targetCode);
     if(deletePetType(listType, targetCode)){
         printf("Comando DELETE processado para TIPO DE PET com código %d (e os PETs nessa categoria).\n", targetCode);
@@ -261,6 +285,12 @@ void validateSelectPetType(petTypeList *listType, char *cursor){
                 root = insertPetTypeInTree(root, current->element, rule);
                 current = current->next;
             }
+            
+            cursor = skipWhitespace(cursor);
+            if (*cursor != '\0' && *cursor != ';') {
+                printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+                return;
+            }
 
             if (root == NULL) {
                 printf("Nenhum registro encontrado.\n");
@@ -298,6 +328,12 @@ void validateSelectPetType(petTypeList *listType, char *cursor){
         }
         int targetCode = atoi(id);
 
+        cursor = skipWhitespace(cursor);
+        if (*cursor != '\0' && *cursor != ';') {
+            printf("Erro: Sintaxe inválida! Caracteres inesperados no fim do comando.");
+            return;
+        }
+        
         petTypeNode *found = searchPetType(listType, targetCode);
         if(found){
             showPetType(found);
