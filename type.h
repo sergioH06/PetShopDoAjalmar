@@ -1,5 +1,5 @@
-#ifndef TYPE_H // <--- Adicione
-#define TYPE_H // <--- Adicione
+#ifndef TYPE_H
+#define TYPE_H
 
 typedef struct {
     int code;
