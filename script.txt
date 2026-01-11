@@ -43,3 +43,33 @@ select * from tipo_pet;
 
 INSERT INTO pessoa (codigo, nome, endereco, telefone, data_nascimento) VALUES ( 99 , 'Teste Sintaxe Espacos' , 'Rua Z' , '000' , '05/05/2005' ) ;
 select * from pessoa where codigo = 99;
+
+insert into tipo_pet (codigo, descricao) values (1, 'Cachorro');
+
+insert into tipo_pet (descricao, codigo) values ('Gato', 2);
+
+insert into pessoa (data_nascimento, telefone, endereco, nome, codigo) values ('01/01/1990', '1111-1111', 'Rua Torta', 'Joao Invertido', 10);
+
+insert into pet (nome, codigo_tipo, codigo, codigo_pes) values ('Rex Trocado', 1, 100, 10);
+
+INSERT INTO PESSOA (CODIGO, NOME, ENDERECO, TELEFONE, DATA_NASCIMENTO) VALUES (20, 'Maria CapsLock', 'Rua Grande', '2222', '02/02/2000');
+
+iNsErT iNtO pEsSoA (cOdIgO, nOmE, eNdErEcO, tElEfOnE, dAtA_nAsCiMeNto) vAlUeS (30, 'Carlos Bagunca', 'Rua Z', '3333', '03/03/2003');
+
+insert into tipo_pet (codigo descricao) values (10, 'Erro Virgula');
+
+insert into tipo_pet (codigo, descricao values (11, 'Erro Parentese');
+
+insert into tipo_pet (codigo, descricao) values (12, 'Erro Qtd', 999);
+
+insert into tipo_pet (codigo, descricao) values (13);
+
+insert inside tipo_pet (codigo, descricao) values (14, 'Erro Keyword');
+
+insert into tipo_pet (codigo, descricao) values ('Dez', 'Erro Tipo');
+
+insert into tipo_pet (codigo, descricao) values (15, '');
+
+select * from tipo_pet;
+select * from pessoa order by codigo;
+select * from pet;
