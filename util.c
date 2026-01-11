@@ -78,7 +78,7 @@ int readToken(char **cursor, char *buffer, int size){
         }
         while (i > 0 && isspace((unsigned char)buffer[i-1])) i--;
         buffer[i] = '\0';
-        return 1; // Sem Aspas
+        return 1; //Sem Aspas
     }
 }
 

@@ -181,7 +181,7 @@ void deletePetByType(petList *l, int petTypeCode){
     }
 }
 
-petTreeNode* insertPetInTree(petTreeNode *root, pet element, int rule){ //rules de acordo com o critério de ordenamento
+petTreeNode* insertPetInTree(petTreeNode *root, pet element, int rule){ //Rules de acordo com o critério de ordenamento
     if (!root) {
         petTreeNode *new = malloc(sizeof(petTreeNode));
         new->element = element;
@@ -192,16 +192,16 @@ petTreeNode* insertPetInTree(petTreeNode *root, pet element, int rule){ //rules 
 
     int comparation = 0;
     switch (rule){
-    case 1: //comparação por código
+    case 1: //Comparação por código
         comparation = element.code - (root)->element.code;
         break;
-    case 2: //comparação por nome
+    case 2: //Comparação por nome
         comparation = strcmp(element.name, (root)->element.name);
         break;
-    case 3: //comparação por código de dono?
+    case 3: //Comparação por código de dono?
         comparation = element.personCode - (root)->element.personCode;
         break;
-    case 4: //comparação por tipo de pet? pra que
+    case 4: //Comparação por tipo de pet? pra que
         comparation = element.petTypeCode - (root)->element.petTypeCode;
         break;
     default:

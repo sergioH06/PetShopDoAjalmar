@@ -115,7 +115,7 @@ void freePetTypeList(petTypeList *l){
     l->counter = 0;
 }
 
-petTypeTreeNode* insertPetTypeInTree(petTypeTreeNode *root, petType element, int rule){ //rules de acordo com o critério de ordenamento
+petTypeTreeNode* insertPetTypeInTree(petTypeTreeNode *root, petType element, int rule){ //Rules de acordo com o critério de ordenamento
     if (!root) {
         petTypeTreeNode *new = malloc(sizeof(petTypeTreeNode));
         new->element = element;
@@ -126,10 +126,10 @@ petTypeTreeNode* insertPetTypeInTree(petTypeTreeNode *root, petType element, int
 
     int comparation = 0;
     switch (rule){
-    case 1: //comparação por código
+    case 1: //Comparação por código
         comparation = element.code - (root)->element.code;
         break;
-    case 2: //comparação por descrição
+    case 2: //Comparação por descrição
         comparation = strcmp(element.description, (root)->element.description);
         break;
     default:

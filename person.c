@@ -144,7 +144,7 @@ void freePersonList(personList *l){
     l->counter = 0;
 }
 
-personTreeNode* insertPersonInTree(personTreeNode *root, person element, int rule){ //rules de acordo com o critério de ordenamento
+personTreeNode* insertPersonInTree(personTreeNode *root, person element, int rule){ //Rules de acordo com o critério de ordenamento
     if (!root) {
         personTreeNode *new = malloc(sizeof(personTreeNode));
         new->element = element;
@@ -155,19 +155,19 @@ personTreeNode* insertPersonInTree(personTreeNode *root, person element, int rul
 
     int comparation = 0;
     switch (rule){
-    case 1: //comparação por código
+    case 1: //Comparação por código
         comparation = element.code - (root)->element.code;
         break;
-    case 2: //comparação por nome
+    case 2: //Comparação por nome
         comparation = strcmp(element.name, (root)->element.name);
         break;
-    case 3: //comparação por endereço
+    case 3: //Comparação por endereço
         comparation = strcmp(element.address, (root)->element.address);
         break;
-    case 4: //comparação por telefone
+    case 4: //Comparação por telefone
         comparation = strcmp(element.phone, (root)->element.phone);
         break;
-    case 5: //comparação por data de nascimento
+    case 5: //Comparação por data de nascimento
         comparation = compareDates(element.birthDate, (root)->element.birthDate);
         break;
     default:

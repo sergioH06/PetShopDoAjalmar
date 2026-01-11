@@ -108,7 +108,7 @@ void validateInsertPet(petList *listPet, personList *listPerson, petTypeList *li
                     return;
                 }
             }
-            cursor = skipWhitespace(cursor); // Pula espaços
+            cursor = skipWhitespace(cursor);
 
             if (*cursor != ')') {
                 printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");
@@ -189,7 +189,7 @@ void validateUpdatePet(petList *listPet, personList *listPerson, petTypeList *li
                 printf("Erro: 'nome' deve ser uma string!\n");
                 return;
             }
-            strncpy(name, value, 49); // Faltava isso
+            strncpy(name, value, 49);
             name[49] = '\0';
         } else if(equals(field, "codigo_pes") == 0){
             if(type == 2){
@@ -395,7 +395,7 @@ void validateSelectPet(petList *listPet, char *cursor){
 
         petNode *found = searchPet(listPet, targetCode);
         if(found){
-            showPet(found); // Sua função showPerson existente
+            showPet(found);
         } else {
             printf("Pet com código %d não encontrado.\n", targetCode);
         }

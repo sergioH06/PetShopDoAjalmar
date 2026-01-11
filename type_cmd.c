@@ -69,7 +69,7 @@ void validateInsertPetType(petTypeList *listType, char *cursor){
                 cursor = skipWhitespace(cursor);
                 if(*cursor == ',') cursor++;
             }
-            cursor = skipWhitespace(cursor); // Pula espaços
+            cursor = skipWhitespace(cursor);
 
             if (*cursor != ')') {
                 printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");

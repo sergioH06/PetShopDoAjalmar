@@ -57,7 +57,7 @@ int main(){
             printf("Erro: Linha muito longa! O limite é %d caracteres.\n", (int) sizeof(buffer));
             printf("Comando descartado para evitar erros.\n");
             
-            //substituição do fflush(stdin)
+            //Substituição do fflush(stdin)
             int character;
             while((character = getchar()) != '\n' && character != EOF);
             

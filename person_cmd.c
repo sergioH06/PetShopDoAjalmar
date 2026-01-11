@@ -121,7 +121,7 @@ void validateInsertPerson(personList *listPerson, char *cursor){
                     return; 
                 }
             }
-            cursor = skipWhitespace(cursor); // Pula espaços
+            cursor = skipWhitespace(cursor);
 
             if (*cursor != ')') {
                 printf("Erro: Excesso de valores no VALUES! Esperado ')'.\n");
